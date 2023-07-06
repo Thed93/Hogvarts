@@ -1,6 +1,13 @@
 package ru.hogwarts.school.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Faculty {
+    @Id
+    @GeneratedValue
     Long id;
     String name;
     int age;
@@ -9,6 +16,10 @@ public class Faculty {
         this.id = id;
         this.name = name;
         this.age = age;
+    }
+
+    public Faculty() {
+
     }
 
     public Long getId() {

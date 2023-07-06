@@ -1,8 +1,17 @@
 package ru.hogwarts.school.model;
 
+import nonapi.io.github.classgraph.json.Id;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
+
+@Entity
 public class Student {
+
+    @Id
+    @GeneratedValue
     Long id;
     String name;
     String color;
@@ -12,6 +21,7 @@ public class Student {
         this.name = name;
         this.color = color;
     }
+
 
     public Long getId() {
         return id;
