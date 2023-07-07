@@ -3,6 +3,7 @@ package ru.hogwarts.school.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Faculty {
@@ -20,6 +21,28 @@ public class Faculty {
 
     public Faculty() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Faculty)) return false;
+        Faculty faculty = (Faculty) o;
+        return age == faculty.age && Objects.equals(id, faculty.id) && Objects.equals(name, faculty.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
     }
 
     public Long getId() {
