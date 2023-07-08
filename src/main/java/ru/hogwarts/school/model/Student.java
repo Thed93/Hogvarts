@@ -11,9 +11,9 @@ public class Student {
 
     @Id
     @GeneratedValue
-    Long id;
-    String name;
-    String color;
+    private Long id;
+    private String name;
+    private String color;
 
     public Student(Long id, String name, String color) {
         this.id = id;
