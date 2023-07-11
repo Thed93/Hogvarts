@@ -30,12 +30,20 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
+    public Faculty findStudentsByFacultyId(long id) {
+
+        return (Faculty) facultyRepository.findStudentsByFacultyId(id);
+    }
+
     public Faculty editFaculty (Faculty faculty) {
        return facultyRepository.save(faculty);
     }
     public void removeFaculty (long id) {
-
         facultyRepository.deleteById(id);
+    }
+
+    public Collection<Faculty> findByColorOrName (String colorOrName){
+        return facultyRepository.findByColorIgnoreCaseOrNameIgnoreCase(colorOrName, colorOrName);
     }
     
 }
