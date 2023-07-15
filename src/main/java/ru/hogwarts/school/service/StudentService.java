@@ -1,6 +1,8 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
@@ -28,12 +30,22 @@ public class StudentService {
 
    }
 
+
    public Student editStudent (Student student) {
       return studentRepository.save(student);
    }
 
    public void removeStudent (long id){
       studentRepository.deleteById(id);
+   }
+
+   public Collection <Student> findByAgeBetween (int min, int max){
+      return studentRepository.findByAgeBetween(min, max);
+   }
+
+   public Faculty getFacultyByName(String name) {
+      return studentRepository.findStudentByName(name).getFaculty();
+
    }
 
 }
