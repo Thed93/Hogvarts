@@ -58,8 +58,8 @@ public class StudentController {
         return ResponseEntity.ok(studentService.findByAgeBetween(from, to));
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<Faculty> getFacultyStudent (@PathVariable String name) {
+    @GetMapping("/faculty")
+    public ResponseEntity<Faculty> getFacultyStudent (@RequestParam String name) {
         return ResponseEntity.ok(studentService.getFacultyByName(name));
 
     }
