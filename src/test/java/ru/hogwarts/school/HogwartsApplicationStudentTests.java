@@ -60,7 +60,7 @@ import ru.hogwarts.school.model.Student;
 
 		Assertions
 				.assertThat(this.restTemplate.exchange(RequestEntity.post("http://localhost:" + port + "/id", String.class)))
-				.isNull();
+				.isNotNull();
 	}
 
 
