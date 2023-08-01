@@ -25,10 +25,10 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 @RequestMapping("students")
 public class StudentController {
     private final StudentService studentService;
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo (@PathVariable long id){

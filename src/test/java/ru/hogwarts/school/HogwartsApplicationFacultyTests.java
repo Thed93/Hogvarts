@@ -66,6 +66,26 @@ public class HogwartsApplicationFacultyTests {
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.color").value(color));
 
+    }
+
+    @Test
+    public void getFacultyTest() throws Exception {
+        JSONObject facultyObject = new JSONObject();
+        final String name = "МГУ";
+        final String color = "Алый";
+        final long id = 1;
+        facultyObject.put("name", name);
+        facultyObject.put("color", color);
+
+
+        Faculty faculty = new Faculty();
+        faculty.setId(id);
+        faculty.setName(name);
+        faculty.setColor(color);
+
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
+        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculties/" + id)
                         .accept(MediaType.APPLICATION_JSON))
@@ -73,11 +93,47 @@ public class HogwartsApplicationFacultyTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.color").value(color));
+    }
+    @Test
+    public void deleteFacultyTest() throws Exception {
+        JSONObject facultyObject = new JSONObject();
+        final String name = "МГУ";
+        final String color = "Алый";
+        final long id = 1;
+        facultyObject.put("name", name);
+        facultyObject.put("color", color);
 
+
+        Faculty faculty = new Faculty();
+        faculty.setId(id);
+        faculty.setName(name);
+        faculty.setColor(color);
+
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
+        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/faculties/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void editFacultyTest() throws Exception {
+        JSONObject facultyObject = new JSONObject();
+        final String name = "МГУ";
+        final String color = "Алый";
+        final long id = 1;
+        facultyObject.put("name", name);
+        facultyObject.put("color", color);
+
+
+        Faculty faculty = new Faculty();
+        faculty.setId(id);
+        faculty.setName(name);
+        faculty.setColor(color);
+
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
+        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/faculties/2")
@@ -86,6 +142,7 @@ public class HogwartsApplicationFacultyTests {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.color").value(color));
+
 
     }
 }
