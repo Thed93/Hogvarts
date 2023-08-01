@@ -1,9 +1,9 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -52,4 +52,16 @@ public class FacultyController {
         facultyService.removeFaculty(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity <Collection<Faculty>> findByNameOrColor (@RequestParam String nameOrColor){
+        return ResponseEntity.ok(facultyService.findByColorOrName(nameOrColor));
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<Collection<Student>> getStudentsByFaculty (@RequestParam String name) {
+        return ResponseEntity.ok(facultyService.getStudentsbyFaculty(name));
+
+    }
+
 }
