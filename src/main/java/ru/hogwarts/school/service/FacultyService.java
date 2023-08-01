@@ -6,28 +6,19 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.Collection;
-
 @Service
 public class FacultyService {
-
     private final FacultyRepository facultyRepository;
-
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
-
     public Collection<Faculty> getAllFaculties(){
-
         return facultyRepository.findAll();
     }
-
     public Faculty createFaculty (Faculty faculty) {
-
         return facultyRepository.save(faculty);
     }
-
     public Faculty findFaculty (long id) {
-
         return facultyRepository.findById(id).get();
     }
 
