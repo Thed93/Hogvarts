@@ -1,23 +1,17 @@
 package ru.hogwarts.school;
-
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
-
-import java.util.Optional;
-
+import ru.hogwarts.school.service.StudentService;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -30,13 +24,16 @@ public class HogwartsApplicationFacultyTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private FacultyRepository facultyRepository;
-
-    @SpyBean
     private FacultyService facultyService;
+
+    @MockBean
+    private StudentService studentService;
 
     @InjectMocks
     private FacultyController facultyController;
+
+
+
 
     @Test
     public void createFacultyTest() throws Exception{
@@ -53,8 +50,8 @@ public class HogwartsApplicationFacultyTests {
         faculty.setName(name);
         faculty.setColor(color);
 
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+        when(facultyService.createFaculty(any(Faculty.class))).thenReturn(faculty);
+        when(facultyService.findFaculty(any(Long.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/faculties")
@@ -83,8 +80,8 @@ public class HogwartsApplicationFacultyTests {
         faculty.setName(name);
         faculty.setColor(color);
 
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+        when(facultyService.createFaculty(any(Faculty.class))).thenReturn(faculty);
+        when(facultyService.findFaculty(any(Long.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculties/" + id)
@@ -109,8 +106,8 @@ public class HogwartsApplicationFacultyTests {
         faculty.setName(name);
         faculty.setColor(color);
 
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+        when(facultyService.createFaculty(any(Faculty.class))).thenReturn(faculty);
+        when(facultyService.findFaculty(any(Long.class))).thenReturn(faculty);
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/faculties/" + id)
                         .accept(MediaType.APPLICATION_JSON))
@@ -132,8 +129,8 @@ public class HogwartsApplicationFacultyTests {
         faculty.setName(name);
         faculty.setColor(color);
 
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
+        when(facultyService.createFaculty(any(Faculty.class))).thenReturn(faculty);
+        when(facultyService.findFaculty(any(Long.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/faculties/2")
