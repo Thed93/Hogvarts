@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.RequestEntity;
+import org.springframework.http.*;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 
@@ -43,6 +43,33 @@ public class HogwartsApplicationStudentTests {
         Assertions
                 .assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/id", student, String.class))
                 .isNotNull();
+    }
+
+    @Test
+    void testDeleteStudentInfo() throws Exception {
+        Student student = new Student();
+        student.setId(4L);
+        student.setName("Bob");
+        HttpEntity<Student> student1 = new HttpEntity<>(student);
+        ResponseEntity<Student> studentEntity = restTemplate.exchange("http://localhost:" + port + "/students/4",
+                HttpMethod.DELETE, student1, Student.class);
+        Assertions
+                .assertThat(studentEntity.getStatusCode())
+                .isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void testEditStudentInfo() throws Exception {
+        Student student = new Student();
+        student.setId(1L);
+        student.setName("Bob");
+        student.setAge(22);
+        HttpEntity<Student> student1 = new HttpEntity<>(student);
+        ResponseEntity<Student> studentEntity = restTemplate.exchange("http://localhost:" + port + "/students",
+                HttpMethod.PUT, student1, Student.class);
+        Assertions
+                .assertThat(studentEntity.getStatusCode())
+                .isEqualTo(HttpStatus.OK);
     }
 
 }

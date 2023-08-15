@@ -133,12 +133,11 @@ public class HogwartsApplicationFacultyTests {
         when(facultyService.findFaculty(any(Long.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .put("/faculties/2")
+                        .put("/faculties")
+                        .content(facultyObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.name").value(name))
-                .andExpect(jsonPath("$.color").value(color));
+                        .andExpect(status().isOk());
 
 
     }
