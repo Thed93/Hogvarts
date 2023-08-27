@@ -1,67 +1,31 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Lust5Students;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repositories.AvatarRepository;
-import ru.hogwarts.school.repositories.StudentRepository;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
+public interface StudentService {
 
-@Service
-public class StudentService {
+    Collection<Student> getAllStudents();
 
+    Student createStudent (Student student);
 
-   private final StudentRepository studentRepository;
+    Student findStudent(long id);
 
-   public StudentService(StudentRepository studentRepository) {
-      this.studentRepository = studentRepository;
-   }
+    Student editStudent (Student student);
 
-   public Collection<Student> getAllStudents(){
-      return studentRepository.findAll();
-   }
-   public Student createStudent (Student student) {
-      return studentRepository.save(student);
-   }
+    void removeStudent (long id);
 
-   public Student findStudent(long id){
-      return studentRepository.findById(id).get();
-   }
+    Collection <Student> findByAgeBetween (int min, int max);
 
+    Faculty getFacultyByName(String name);
 
-   public Student editStudent (Student student) {
-      return studentRepository.save(student);
-   }
-   public void removeStudent (long id){
-      studentRepository.deleteById(id);
-   }
-   public Collection <Student> findByAgeBetween (int min, int max){
-      return studentRepository.findByAgeBetween(min, max);
-   }
-   public Faculty getFacultyByName(String name) {
-      return studentRepository.findStudentByName(name).getFaculty();
-   }
+    Integer getNumberOfStudents();
 
-   public Integer getNumberOfStudents(){
-      return studentRepository.getNumberOfStudents();
-   }
+    Integer getAverageAgeOfStudents();
 
-   public Integer getAverageAgeOfStudents(){
-      return studentRepository.getAverageAgeOfStudents();
-   }
-
-   public List<Lust5Students> getLust5Students(){
-      return studentRepository.getLust5Students();
-   }
+    List<Lust5Students> getLust5Students();
 }
