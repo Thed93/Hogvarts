@@ -34,4 +34,6 @@ public interface StudentService {
     double getAvgAge();
 
     Integer sumImpr();
+
+    Integer sumIm();
 }

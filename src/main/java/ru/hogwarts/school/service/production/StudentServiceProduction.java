@@ -101,6 +101,16 @@ public class StudentServiceProduction implements StudentService {
 
    }
 
+   public Integer sumIm() {
+      long start = System.currentTimeMillis();
+      int res = Stream.iterate(1, a -> a + 1)
+              .limit(1_000_000)
+              .reduce(0, Integer::sum);
+      long finish = System.currentTimeMillis();
+      long dif = finish - start;
+      System.out.println("im " + dif);
+      return res;
+   }
 
 
    }

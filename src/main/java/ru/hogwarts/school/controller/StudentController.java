@@ -67,9 +67,14 @@ public class StudentController {
         return studentService.getAverageAgeOfStudents();
     }
 
+    @GetMapping("/sumPr")
+    public Integer sumPr(){
+        return studentService.sumImpr();
+    }
+
     @GetMapping("/sum")
     public Integer sum(){
-        return studentService.sumImpr();
+        return studentService.sumIm();
     }
 
 
