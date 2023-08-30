@@ -1,0 +1,3 @@
+CREATE TABLE car (id SERIAL PRIMARY KEY , mark TEXT, model TEXT, cost INTEGER);
+
+CREATE TABLE driver (id SERIAL PRIMARY KEY,name TEXT, age INTEGER, car_license BOOLEAN, car_id INTEGER REFERENCES car (id));
