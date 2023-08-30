@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.service.FacultyService;
-import ru.hogwarts.school.service.StudentService;
+import ru.hogwarts.school.service.production.FacultyServiceProduction;
+import ru.hogwarts.school.service.production.StudentServiceProduction;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -24,10 +24,10 @@ public class HogwartsApplicationFacultyTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private FacultyService facultyService;
+    private FacultyServiceProduction facultyService;
 
     @MockBean
-    private StudentService studentService;
+    private StudentServiceProduction studentService;
 
     @InjectMocks
     private FacultyController facultyController;
