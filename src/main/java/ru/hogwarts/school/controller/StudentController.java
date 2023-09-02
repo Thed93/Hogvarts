@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
+import java.util.List;
 
 
 @RestController
@@ -55,5 +56,26 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getFacultyByName(name));
 
     }
+
+    @GetMapping("/names_start_with_a")
+    public List<String> namesStartWithA() {
+        return studentService.getStudentsStartWithA();
+    }
+
+    @GetMapping("/averageAge")
+    public double averageAge(){
+        return studentService.getAverageAgeOfStudents();
+    }
+
+    @GetMapping("/sumPr")
+    public Integer sumPr(){
+        return studentService.sumImpr();
+    }
+
+    @GetMapping("/sum")
+    public Integer sum(){
+        return studentService.sumIm();
+    }
+
 
 }

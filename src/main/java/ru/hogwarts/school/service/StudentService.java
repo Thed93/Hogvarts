@@ -28,4 +28,12 @@ public interface StudentService {
     Integer getAverageAgeOfStudents();
 
     List<Lust5Students> getLust5Students();
+
+    List<String> getStudentsStartWithA();
+
+    double getAvgAge();
+
+    Integer sumImpr();
+
+    Integer sumIm();
 }

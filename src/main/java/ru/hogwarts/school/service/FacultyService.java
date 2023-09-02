@@ -23,4 +23,6 @@ public interface FacultyService {
     Collection<Faculty> findByColorOrName (String colorOrName);
 
     Collection<Student> getStudentsbyFaculty(String name);
+
+    String getLongestName();
 }
