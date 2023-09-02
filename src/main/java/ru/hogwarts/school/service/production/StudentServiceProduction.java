@@ -9,6 +9,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,8 @@ public class StudentServiceProduction implements StudentService {
    }
 
    Logger logger = LoggerFactory.getLogger(StudentServiceProduction.class);
+
+   public Object flag = new Object();
 
    public Collection<Student> getAllStudents(){
       logger.debug("Вызван метод 'getAllStudents'");
@@ -112,5 +115,63 @@ public class StudentServiceProduction implements StudentService {
       return res;
    }
 
+   public List<Student> get6Students() {
+       List<Student> allStudents = studentRepository.findAll();
+       System.out.println(allStudents.get(0).getId() + " " + allStudents.get(0).getName());
+      System.out.println(allStudents.get(1).getId() + " " + allStudents.get(1).getName());
 
+      new Thread(() -> {
+         try {
+            Thread.currentThread().sleep(1000);
+         System.out.println(allStudents.get(2).getId() + " " + allStudents.get(2).getName());
+            Thread.currentThread().sleep(1000);
+         System.out.println(allStudents.get(3).getId() + " " + allStudents.get(3).getName());
+         } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+         }
+       }).start();
+
+       new Thread(() -> {
+          try {
+             Thread.currentThread().sleep(1000);
+             System.out.println(allStudents.get(4).getId() + " " + allStudents.get(4).getName());
+             Thread.currentThread().sleep(1000);
+             System.out.println(allStudents.get(5).getId() + " " + allStudents.get(5).getName());
+          } catch (InterruptedException e) {
+             throw new RuntimeException(e);
+          }
+       }).start();
+       return allStudents;
+   }
+
+   public List<Student> get6StudentsSn() {
+      synchronized (flag) {
+         List<Student> allStudents = studentRepository.findAll();
+         System.out.println(allStudents.get(0).getId() + " " + allStudents.get(0).getName());
+         System.out.println(allStudents.get(1).getId() + " " + allStudents.get(1).getName());
+
+         new Thread(() -> {
+            try {
+               Thread.currentThread().sleep(1000);
+               System.out.println(allStudents.get(2).getId() + " " + allStudents.get(2).getName());
+               Thread.currentThread().sleep(1000);
+               System.out.println(allStudents.get(3).getId() + " " + allStudents.get(3).getName());
+            } catch (InterruptedException e) {
+               throw new RuntimeException(e);
+            }
+         }).start();
+
+         new Thread(() -> {
+            try {
+               Thread.currentThread().sleep(1000);
+               System.out.println(allStudents.get(4).getId() + " " + allStudents.get(4).getName());
+               Thread.currentThread().sleep(1000);
+               System.out.println(allStudents.get(5).getId() + " " + allStudents.get(5).getName());
+            } catch (InterruptedException e) {
+               throw new RuntimeException(e);
+            }
+         }).start();
+         return allStudents;
+      }
+   }
    }

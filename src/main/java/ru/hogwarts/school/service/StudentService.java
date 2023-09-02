@@ -4,6 +4,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Lust5Students;
 import ru.hogwarts.school.model.Student;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,4 +37,8 @@ public interface StudentService {
     Integer sumImpr();
 
     Integer sumIm();
+
+    List<Student> get6Students();
+
+    List<Student> get6StudentsSn();
 }
