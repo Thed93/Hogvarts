@@ -78,10 +78,14 @@ public class StudentController {
     }
 
     @GetMapping("/6_students")
-    public List<Student> get6Students() { return studentService.get6Students();}
+    public void get6Students() {
+        studentService.get6Students();
+    }
 
     @GetMapping("/6_studentsSn")
-    public List<Student> get6StudentsSn() { return studentService.get6StudentsSn();}
+    public void get6StudentsSn() {
+        studentService.get6StudentsSn();
+    }
 
 
 }
