@@ -77,5 +77,15 @@ public class StudentController {
         return studentService.sumIm();
     }
 
+    @GetMapping("/6_students")
+    public void get6Students() {
+        studentService.get6Students();
+    }
+
+    @GetMapping("/6_studentsSn")
+    public void get6StudentsSn() {
+        studentService.get6StudentsSn();
+    }
+
 
 }

@@ -26,59 +26,65 @@ public class StudentServiceProduction implements StudentService {
 
    Logger logger = LoggerFactory.getLogger(StudentServiceProduction.class);
 
-   public Collection<Student> getAllStudents(){
+   public Object flag = new Object();
+
+   public Collection<Student> getAllStudents() {
       logger.debug("Вызван метод 'getAllStudents'");
       return studentRepository.findAll();
    }
-   public Student createStudent (Student student) {
+
+   public Student createStudent(Student student) {
       logger.debug("Вызван метод 'createStudent'");
       return studentRepository.save(student);
    }
 
-   public Student findStudent(long id){
+   public Student findStudent(long id) {
       logger.debug("Вызван метод 'findStudent'");
       return studentRepository.findById(id).get();
    }
 
 
-   public Student editStudent (Student student) {
+   public Student editStudent(Student student) {
       logger.debug("Вызван метод 'editStudent'");
       return studentRepository.save(student);
    }
-   public void removeStudent (long id){
+
+   public void removeStudent(long id) {
       logger.debug("Вызван метод 'removeStudent'");
       studentRepository.deleteById(id);
    }
-   public Collection <Student> findByAgeBetween (int min, int max){
+
+   public Collection<Student> findByAgeBetween(int min, int max) {
       logger.debug("Вызван метод 'findByAgeBetween'");
       return studentRepository.findByAgeBetween(min, max);
    }
+
    public Faculty getFacultyByName(String name) {
       logger.debug("Вызван метод 'getFacultyByName'");
       return studentRepository.findStudentByName(name).getFaculty();
    }
 
-   public Integer getNumberOfStudents(){
+   public Integer getNumberOfStudents() {
       logger.debug("Вызван метод 'getNumberOfStudents'");
       return studentRepository.getNumberOfStudents();
    }
 
-   public Integer getAverageAgeOfStudents(){
+   public Integer getAverageAgeOfStudents() {
       logger.debug("Вызван метод 'getAverageAgeOfStudents'");
       return studentRepository.getAverageAgeOfStudents();
    }
 
-   public List<Lust5Students> getLust5Students(){
+   public List<Lust5Students> getLust5Students() {
       logger.debug("Вызван метод 'getLust5Students'");
       return studentRepository.getLust5Students();
    }
 
-   public List<String> getStudentsStartWithA(){
-     return studentRepository.findAll().stream()
-              .map(Student->Student.getName().toUpperCase())
-             .filter(name->name.startsWith("A"))
-             .sorted()
-             .collect(Collectors.toList());
+   public List<String> getStudentsStartWithA() {
+      return studentRepository.findAll().stream()
+              .map(Student -> Student.getName().toUpperCase())
+              .filter(name -> name.startsWith("A"))
+              .sorted()
+              .collect(Collectors.toList());
    }
 
    public double getAvgAge() {
@@ -90,7 +96,7 @@ public class StudentServiceProduction implements StudentService {
 
    public Integer sumImpr() {
       long start = System.currentTimeMillis();
-      int res = Stream.iterate(1, a -> a +1)
+      int res = Stream.iterate(1, a -> a + 1)
               .parallel()
               .limit(1_000_000)
               .reduce(0, Integer::sum);
@@ -112,5 +118,51 @@ public class StudentServiceProduction implements StudentService {
       return res;
    }
 
+   public String getStudentsNamesById(int id) {
+
+      List<String> studentsNames = studentRepository.findAll()
+              .stream()
+              .map(Student -> Student.getName())
+              .collect(Collectors.toList());
+      System.out.println(studentsNames.get(id));
+      return studentsNames.get(id);
+   }
+
+   public String getStudentsNamesByIdSn(int id) {
+      synchronized (flag) {
+         List<String> studentsNames = studentRepository.findAll()
+                 .stream()
+                 .map(Student -> Student.getName())
+                 .collect(Collectors.toList());
+         System.out.println(studentsNames.get(id));
+         return studentsNames.get(id);
+      }
+   }
+
+   public void get6Students() {
+      getStudentsNamesById(0);
+      getStudentsNamesById(1);
+      new Thread(() -> {
+            getStudentsNamesById(2);
+            getStudentsNamesById(3);
+      }).start();
+      new Thread(() -> {
+            getStudentsNamesById(4);
+            getStudentsNamesById(5);
+      }).start();
+   }
+
+   public void get6StudentsSn() {
+         getStudentsNamesByIdSn(0);
+         getStudentsNamesByIdSn(1);
+         new Thread(() -> {
+            getStudentsNamesByIdSn(2);
+            getStudentsNamesByIdSn(3);
+         }).start();
+         new Thread(() -> {
+            getStudentsNamesByIdSn(4);
+            getStudentsNamesByIdSn(5);
+         }).start();
 
    }
+}

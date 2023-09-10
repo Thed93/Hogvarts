@@ -36,4 +36,8 @@ public interface StudentService {
     Integer sumImpr();
 
     Integer sumIm();
+
+    void get6Students();
+
+    void get6StudentsSn();
 }
